@@ -1,4 +1,4 @@
-import json, os, subprocess
+import json, os, subprocess, threading, time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 TOKEN = os.environ.get("RUNNER_TOKEN", "")
@@ -42,5 +42,10 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, {"exit_code": -1, "stdout": "", "stderr": "timeout"})
 
 
+def watchdog(seconds=300):
+    time.sleep(seconds)
+    os._exit(0)
+
 if __name__ == "__main__":
+    threading.Thread(target=watchdog, daemon=True).start()
     ThreadingHTTPServer(("0.0.0.0", 8080), Handler).serve_forever()

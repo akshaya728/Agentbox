@@ -3,3 +3,4 @@
 .env
 *.pem
 *.csv
+aws-setup/taskdef.json
