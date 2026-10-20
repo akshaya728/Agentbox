@@ -4,3 +4,6 @@
 *.pem
 *.csv
 aws-setup/taskdef.json
+terraform/*.zip
+*.tfstate
+*.tfstate.*
